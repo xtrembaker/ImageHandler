@@ -256,14 +256,13 @@ class ImageHandlerComponent extends Component {
      * @param type $source_size original size
      */
     private function __calculateNewSizeByFormat($format,$type, $source_size){
-        echo "format ".$format."<br>";
         $size = $this->format[$format]['size'];
         $value = $this->format[$format][$type];
 //        echo "size ".$size."<br>";
 //        echo "value ".$value."<br>";
         switch($size){
             case 'percent':
-                $newValue = ($source_size / $value) * 100;
+                $newValue = ($value / 100) * $source_size;
                 break;
             case 'pixel':
                 $newValue = $value;
@@ -289,7 +288,6 @@ class ImageHandlerComponent extends Component {
      * @param type $newHeight
      */
     public function copy($filename, $to) {
-        pr($to);
         $this->__filename = $filename;
         // Get default format
         $format = $to;
@@ -309,8 +307,6 @@ class ImageHandlerComponent extends Component {
         // Make absolute path
         $to = $this->__makeAbsolutePath($to);
         $source = $this->__makeAbsolutePath($source);
-//        echo "to ".$to."<br>";
-//        echo "source ".$source."<br>";
         // Source should be the default folder, so don't need it as parameter
         
         // $dir should be only the format name we want to use for.
