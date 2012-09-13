@@ -13,6 +13,8 @@ class ImageHandlerComponent extends Component {
     
     private $__filename;
     
+    public $exif_data;
+    
     /**
      * Hold all format you'd like to use
      * 
@@ -195,6 +197,7 @@ class ImageHandlerComponent extends Component {
         $upload = false;
         // Try to create directory structure
         if(true === $this->createDir($dir)){
+            $this->exif_data = $file['tmp_name'];
             // Try to move uploaded fil to dir
             $upload = (move_uploaded_file($file['tmp_name'], $dir . $this->__filename)) ? true : false;
             if(true === $upload){
